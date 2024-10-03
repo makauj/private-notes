@@ -1,6 +1,4 @@
-Let’s break down `atoi` and its purpose:
-
-### What is `atoi`?
+## What is `atoi`?
 
 `atoi` stands for "ASCII to Integer." It is a standard library function in C that converts a string (a sequence of characters) representing a number into its integer form.
 
