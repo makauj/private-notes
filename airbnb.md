@@ -1,8 +1,8 @@
 # 0x00. AirBnB clone - The console
 
 ## Background Context
-The AirBnB clone project is a full stack project that will take 4 months to complete. The goal is to to deploy on my server a so=imple copy of the AirBnB wesite.
-We will implement features one after another, covering all fundamental concepts of the higher level programming stack.
+The AirBnB clone project is a full-stack project that will take 4 months to complete. The goal is to to deploy on my server a simple copy of the AirBnB website.
+We will implement features one after another, covering all fundamental concepts of the higher-level programming stack.
 The complete website will be composed of:
 1. A console interpreter. The console interpreter will manipulate data without a visual interface, like a shell.
 2. The front-end. This will be the website that can be used by everyone.
