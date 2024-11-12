@@ -18,4 +18,5 @@ The AirBnB clone project is a full-stack project that will take 4 months to comp
 The console is a command line interpreter. It will help us play around with the data without the need of a developed website.
 Completing the console lets us test out new ideas, tweak things and fix any issues smoothly.
 It also helps us visualize how the whole project will fit together.
+
 ![Server side (back-end)](image.webp)
