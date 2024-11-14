@@ -20,3 +20,5 @@ Completing the console lets us test out new ideas, tweak things and fix any issu
 It also helps us visualize how the whole project will fit together.
 
 ![Server side (back-end)](image.webp)
+
+
