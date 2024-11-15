@@ -21,4 +21,56 @@ It also helps us visualize how the whole project will fit together.
 
 ![Server side (back-end)](image.webp)
 
+### Python Packages
+Packages are a way to organize project files in different folders and subfolders based on some criteria. This helps us to manage them easier and more efficiently. Pyhton packages help us keep our code organized by structuring it into reusable components which are easier to manage and maintain.
+To create python packages, we need to:
+
+***1. Create a Directory***
+This will serve as the root of your package structure.
+
+***2. Add Modules***
+Add Python files containing your code inside the directory. Each python file (module) should represent idstinct functionality or components of your package.
+
+***3. Init File***
+One of the Pyhton files should be named `__init__.py`. This can be an empty file, but it can also contain initialization code for your package.
+The init file signals to python that the directory should be treated as a package.
+
+***4. Subpackages***
+Your package can contain subpackages.
+Each subpackage is a sub-directory with Python files and an init file.
+
+***5. Importing***
+Import modules into your python script using dot notation.
+
+***6. Distriution***
+We can distribut our Python package by  creating a `setup.py` file using setuptools library in Python. This is a file containinng metadata about the package and specifies how it should be installed.
+
+***AirBnB_clone Example Code***
+```
+AirBnB_Clone/
+│
+├── console.py
+├── __init__.py
+│
+├── models/
+│   ├── __init__.py
+│   ├── base_models.py
+│   └── engine/
+│       ├── __init__.py
+│       └── file_storage.py
+│
+└── tests/
+    ├── __init__.py
+    └── test_console.py
+```
+In the above example, we have the AirBnB_clone directory which is our Python package.
+There are subpackages `models` and `tests` inside our main package.
+the subpackage `models` has its own subpackage `engine`.
+Each directory is initialized by its own `__init__.py` file.
+
+### *args and **kwargs
+
+
+
+### datetime
 
