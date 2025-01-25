@@ -1,5 +1,5 @@
 class User:
-    id = 89
+    id = 1
     name = "no name"
     __password = None
 
