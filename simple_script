@@ -1,0 +1,6 @@
+
+alias multipull='find . -mindepth 1 -maxdepth 1 -type d \( -name "alx*" -o -name "pr*" -o -name "simp*" -o -name "Air*" \) -print -exec git -C "{}" pull \;'
+
+alias multicommitpush='find . -mindepth 1 -maxdepth 1 -type d \( -name "alx*" -o -name "pr*" -o -name "simp*" -o -name "Air*" \) -print -exec bash -c "cd \"{}\" && git add . && git commit -m \"Auto commit\" && git push" \;'
+
+sudo apt install gcc python3-pip pycodestyle ruby nodejs npm -y
