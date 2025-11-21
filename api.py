@@ -1,37 +1,30 @@
-import json
 import requests
+import json
+import os
 
 url = "https://remoteok.com/api"
-
-def call_api(url):
-    """
-    simple api to call remoteok api and return json data
-    """
+def fetch_jobs(url):
     try:
-        response = requests.get(url)
+        response = requests.get(
+            url,
+            timeout=10
+        )
         response.raise_for_status()
         data = response.json()
-        if isinstance(data, list):
-            return data
-        else:
-            print("Unexpected data format received from API.")
-            return None
-    except requests.RequestException as e:
-        print(f"An error occurred: {e}")
-        return None
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
-        return None
+        # create file and directory if not exists and write data to it
+        
+        os.makedirs("data", exist_ok=True)
+        json_str = json.dumps(data, indent=4)
+        # Make sure the folder exists or you’ll get an error
+        with open("data/raw_jobs.json", "w", encoding="utf-8") as f:
+            f.write(json_str)
+        return data
+    except requests.exceptions.Timeout:
+        print("Error: Timeout...")
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP Error: {e}")
+    except requests.exceptions.RequestException as e:
+        print(f"Other errors caught: {e}")
 
-    
 if __name__ == "__main__":
-    data = call_api(url)
-    if data:
-        for job in data[1:]:  # Skip the first element which is metadata
-            print(f"Company: {job.get('company')}")
-            print(f"Position: {job.get('position')}")
-            print(f"Location: {job.get('location')}")
-            print(f"URL: {job.get('url')}")
-            print("-" * 40)
-    else:
-        print("No data retrieved from the API.")
+    fetch_jobs(url)
