@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 
-sudo apt update
-sudo apt upgrade -y
-sudo apt install ruby -y
+sudo dnf update
+sudo dnf upgrade -y
+sudo dnf install ruby -y
 sudo python -m ensurepip --upgrade
-sudo apt install python3-pip -y
-sudo apt install python3-venv -y
-sudo apt install python3-setuptools -y
-sudo apt install python3-wheel -y
-sudo apt install python3-dev -y
-sudo apt install MySQLdb -y
-sudo apt install libmysqlclient-dev -y
-sudo apt install libssl-dev -y
-sudo apt install libffi-dev -y
-sudo apt install build-essential -y
+sudo dnf install python3-pip -y
+sudo dnf install python3-venv -y
+sudo dnf install python3-setuptools -y
+sudo dnf install python3-wheel -y
+sudo dnf install python3-dev -y
+sudo dnf install MySQLdb -y
+sudo dnf install libmysqlclient-dev -y
+sudo dnf install libssl-dev -y
+sudo dnf install libffi-dev -y
+sudo dnf install build-essential -y
 pip install sqlalchemy
-sudo apt install gcc -y
-sudo apt install nodejs -y
-sudo apt install npm -y
-sudo apt install curl -y
+sudo dnf install gcc -y
+sudo dnf install nodejs -y
+sudo dnf install npm -y
+sudo dnf install curl -y
 
-sudo apt install code -y
+sudo dnf install code -y
 
 
 
@@ -41,11 +41,11 @@ sudo ./Betty/install.sh
 ##
 
 pipx uninstall Fabric
-sudo apt-get install libffi-dev
-sudo apt-get install libssl-dev
-sudo apt-get install build-essential
-sudo apt-get install python3.4-dev
-sudo apt-get install libpython3-dev
+sudo dnf install libffi-devel -y
+sudo dnf install openssl-devel -y
+sudo dnf install @development-tools -y
+sudo dnf install python3-devel -y
+sudo dnf install python3-devel -y
 pipx install pyparsing
 pipx install appdirs
 pipx install setuptools==40.1.0
