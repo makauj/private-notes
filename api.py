@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+from re import search
 
 url = "https://remoteok.com/api"
 def fetch_jobs(url):
@@ -25,6 +26,37 @@ def fetch_jobs(url):
         print(f"HTTP Error: {e}")
     except requests.exceptions.RequestException as e:
         print(f"Other errors caught: {e}")
+    
+    try:
+        with open("data/raw_jobs.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        search_term = {"python", "developer", "engineer", "remote", "backend", "fullstack", "frontend", "api", "software"}
+        for job in data:
+            job["position"] = job.search("position", "").lower()
+
+            filtered_jobs = {
+                job['id']: job for job in data
+                if any(term in job["position"] for term in search_term)
+            }
+        return list(filtered_jobs.values())
+
+
+    except FileNotFoundError:
+        print("No local data available.")
+        return []
+    except json.JSONDecodeError:
+        print("Error decoding JSON from local file.")
+        return []
+
+def save_filtered_jobs(filtered_jobs):
+    """Save filtered jobs to a JSON file."""
+    try:
+        with open("data/filtered_jobs.json", "w", encoding="utf-8") as f:
+            f.write(json.dumps(filtered_jobs, indent=4))
+    except Exception as e:
+        print(f"Error writing filtered jobs to file: {e}")
 
 if __name__ == "__main__":
-    fetch_jobs(url)
+    filtered_jobs = fetch_jobs(url)
+    save_filtered_jobs(filtered_jobs)
