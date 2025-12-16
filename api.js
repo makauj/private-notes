@@ -18,7 +18,7 @@ function callApi(url) {
             try {
                 const parsed = JSON.parse(data);
                 const formattedData = JSON.stringify(parsed, null, 2);
-                fs.writeFile("../data/raw_jobs_json.json", formattedData, (err) => {
+                fs.writeFile("data/raw_jobs.json", formattedData, (err) => {
                     if (err) throw err;
                     console.log('Data has been saved!');
                 });

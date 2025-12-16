@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-from re import search
+import re
 
 url = "https://remoteok.com/api"
 def fetch_jobs(url):
@@ -32,13 +32,12 @@ def fetch_jobs(url):
             data = json.load(f)
         
         search_term = {"python", "developer", "engineer", "remote", "backend", "fullstack", "frontend", "api", "software"}
+        filtered_jobs = {}
         for job in data:
-            job["position"] = job.search("position", "").lower()
+            job["position"] = job.get("position", "").lower()
 
-            filtered_jobs = {
-                job['id']: job for job in data
-                if any(term in job["position"] for term in search_term)
-            }
+            if any(term in job["position"] for term in search_term):
+                filtered_jobs[job['id']] = job
         return list(filtered_jobs.values())
 
 
@@ -49,14 +48,45 @@ def fetch_jobs(url):
         print("Error decoding JSON from local file.")
         return []
 
-def save_filtered_jobs(filtered_jobs):
-    """Save filtered jobs to a JSON file."""
+def save_filtered_jobs():
     try:
-        with open("data/filtered_jobs.json", "w", encoding="utf-8") as f:
-            f.write(json.dumps(filtered_jobs, indent=4))
+        with open("data/raw_jobs.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+
+        search_list = {"backend", "api", "server", "data"}
+
+
+        # Use word boundaries only for pure words (backend/server/data), but "api" works fine too.
+        pattern = re.compile(r"\b(" + "|".join(search_list) + r")\b", re.IGNORECASE)
+
+
+        results = []
+
+
+        for job in data:
+            # Ensure job is a dict and has expected fields
+            if not isinstance(job, dict) or "position" not in job:
+                continue
+
+
+            # Extract matches from job title
+            matches = pattern.findall(job["position"])
+
+
+            # Build structured result
+            results.append({
+                "position": job.get("position"),
+                "location": job.get("location"),
+                "apply_url": job.get("url"),
+                "tags": list({m.lower() for m in matches}),  # remove duplicates, normalize
+            })
+
+
     except Exception as e:
-        print(f"Error writing filtered jobs to file: {e}")
+        raise Exception(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
-    filtered_jobs = fetch_jobs(url)
-    save_filtered_jobs(filtered_jobs)
+    fetch_jobs(url)
+    save_filtered_jobs()
