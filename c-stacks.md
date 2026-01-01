@@ -1,4 +1,5 @@
 # 0x19. C - Stacks, Queues - LIFO, FIFO
+
 To implement the `push` and `pall` opcodes for a stack in a programming context, we need to define how these operations will function. Below is a simple implementation in C, along with explanations.
 
 #### Stack Structure
@@ -20,7 +21,7 @@ First, let's define a basic stack structure and some necessary functions:
 #define QUEUE 1
 #define DELIMS " \n\t\a\b"
 
-
+```c
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -32,9 +33,9 @@ First, let's define a basic stack structure and some necessary functions:
  */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+    int n;
+    struct stack_s *prev;
+    struct stack_s *next;
 } stack_t;
 
 /**
@@ -47,8 +48,8 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+    char *opcode;
+    void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 void push(int value);
@@ -177,6 +178,7 @@ Here’s how you can implement the `pop` opcode in your code structure:
 ### Revised Code for `pop` Opcode
 
 #### monty_pop.c
+
 ```c
 #include "main.h"
 
@@ -204,14 +206,17 @@ void monty_pop(stack_t **stack, unsigned int line_number)
 ```
 
 #### Integration with Main Code
+
 Ensure to include the prototype for `monty_pop` in your header file (`main.h`):
 
 #### main.h
+
 ```c
 void monty_pop(stack_t **stack, unsigned int line_number);
 ```
 
 #### Example Command Handling (in main function)
+
 You need to modify your command handling logic to recognize the `pop` command. Here’s a brief example of how to handle it in your main function:
 
 ```c
@@ -222,6 +227,7 @@ if (strcmp(command, "pop") == 0) {
 ```
 
 #### Summary of Changes
+
 - **Functionality**: The `monty_pop` function checks if the stack is empty. If it is, it calls `handle_error` with the appropriate message. If not, it updates the stack pointer to remove the top node and frees its memory.
 - **Error Handling**: Uses the `line_number` to provide context for errors, maintaining consistency with your other opcode implementations.
 - **Memory Management**: Ensures that memory for the popped node is properly freed.
@@ -274,17 +280,19 @@ void monty_swap(stack_t **stack, unsigned int line_number)
 }
 ```
 
-#### Explanation of Key Changes:
+#### Explanation of Key Changes
+
 1. **Error Checking**: The code checks if `top_node` is `NULL` or if `top_node->next` is `NULL` (which means there is no second element to swap with). If either condition is true, it calls `handle_error` to report that the stack is too short.
 
-2. **Node Manipulation**: 
+2. **Node Manipulation**:
    - It identifies `next_node` as the second top element of the stack.
    - It updates the links correctly to swap the top two nodes.
 
-3. **Pointer Updates**: 
+3. **Pointer Updates**:
    - After swapping, the `*stack` pointer is updated to point to the new top of the stack.
 
 #### Usage in Your Code
+
 Ensure to add the function prototype for `monty_swap` in your `main.h` file:
 
 ```c
@@ -292,6 +300,7 @@ void monty_swap(stack_t **stack, unsigned int line_number);
 ```
 
 #### Example Command Handling
+
 In your command handling loop, make sure you include logic to handle the `swap` command:
 
 ```c
@@ -299,7 +308,6 @@ if (strcmp(command, "swap") == 0) {
     monty_swap(&stack, line_number);
 }
 ```
-
 
 ### Revised `monty_add` Implementation
 
@@ -342,18 +350,20 @@ void monty_add(stack_t **stack, unsigned int line_number)
 }
 ```
 
-#### Explanation of Key Components:
+#### Explanation of Key Components
+
 1. **Error Checking**: The function checks if the stack has fewer than two elements. If so, it calls `handle_error` to report the error.
 
 2. **Perform Addition**: The value of the top node (`top_node->n`) is added to the value of the next node (`next_node->n`).
 
-3. **Update Stack**: 
+3. **Update Stack**:
    - The stack pointer is moved to point to `next_node`, which now contains the sum.
    - The next pointers are updated to maintain the stack's integrity.
 
 4. **Memory Management**: The old top node is freed after it has been added.
 
 #### Usage in Your Code
+
 Make sure to add the function prototype for `monty_add` in your `main.h` file:
 
 ```c
@@ -361,6 +371,7 @@ void monty_add(stack_t **stack, unsigned int line_number);
 ```
 
 #### Example Command Handling
+
 In your command handling loop, include the logic to handle the `add` command:
 
 ```c
@@ -376,6 +387,7 @@ Implementing the `nop` opcode is straightforward since it doesn't perform any ac
 ### Implementation of `nop` Opcode
 
 #### monty_nop.c
+
 ```c
 #include "main.h"
 
@@ -392,10 +404,12 @@ void monty_nop(stack_t **stack, unsigned int line_number)
 ```
 
 #### Explanation
+
 - **Function Definition**: The function `monty_nop` is defined with the required parameters, but it does nothing.
 - **Parameter Handling**: The parameters are cast to `(void)` to prevent compiler warnings about unused parameters.
 
 #### Usage in Your Code
+
 Make sure to add the function prototype for `monty_nop` in your `main.h` file:
 
 ```c
@@ -403,6 +417,7 @@ void monty_nop(stack_t **stack, unsigned int line_number);
 ```
 
 #### Example Command Handling
+
 In your command handling loop, include the logic to handle the `nop` command:
 
 ```c
@@ -446,12 +461,14 @@ void monty_sub(stack_t **stack, unsigned int line_number)
 }
 ```
 
-#### Explanation:
+#### Explanation
+
 - **Error Handling:** The error handling is intact, ensuring the function doesn’t operate on an invalid stack state.
 - **Subtraction Logic:** The logic for subtraction correctly updates the value of the second node.
 - **Memory Management:** Frees the top node after it’s no longer needed, preventing memory leaks.
 
 Here's how you can implement the `div` opcode for your stack-based interpreter. This function will divide the second top element of the stack by the top element and handle the error cases as specified:
+
 ### Implementation of `div` Opcode
 
 #### monty_div.c
@@ -490,7 +507,8 @@ void monty_div(stack_t **stack, unsigned int line_number)
 }
 ```
 
-#### Key Points in the Implementation:
+#### Key Points in the Implementation
+
 1. **Error Handling for Stack Size:** The function checks if there are at least two elements in the stack. If not, it calls `handle_error` with the appropriate message.
   
 2. **Division by Zero Check:** Before performing the division, it checks if the top element is zero. If it is, it also calls `handle_error` to handle the division by zero case.
@@ -549,7 +567,9 @@ void monty_rotl(stack_t **stack, unsigned int line_number)
     *stack = second_node; // Now, the second node is the top of the stack
 }
 ```
-#### Explanation:
+
+#### Explanation
+
 1. **Check Stack Size:** The function first checks if the stack is empty or has only one element. If so, it simply returns, as no rotation is needed.
 
 2. **Update Pointers:**
@@ -568,7 +588,8 @@ void monty_rotl(stack_t **stack, unsigned int line_number)
 
 6. **Update Stack Pointer:** Finally, the stack pointer is updated to point to the new top node (`second_node`).
 
-#### Summary:
+#### Summary
+
 This `rotl` implementation rotates the stack correctly while handling the necessary pointer adjustments.
 
 ### Implementation of `rotr` Opcode
@@ -617,7 +638,8 @@ void monty_rotr(stack_t **stack, unsigned int line_number)
 }
 ```
 
-#### Explanation:
+#### Explanation
+
 1. **Check Stack Size:** The function first checks if the stack is empty or has only one element. If so, it simply returns, as no rotation is needed.
 
 2. **Find the Last Node:** A `while` loop is used to traverse the stack until the last node is reached.
@@ -630,8 +652,8 @@ void monty_rotr(stack_t **stack, unsigned int line_number)
 
 4. **Update Stack Pointer:** Finally, the stack pointer is updated to point to the new top node (`last_node`).
 
-#### Summary:
+#### Summary
+
 This `rotr` implementation rotates the stack correctly by moving the last element to the top, while using a `while` loop for traversal.
 
 ### `stack` and `queue` Opcode implementation
-
