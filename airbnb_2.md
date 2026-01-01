@@ -1,10 +1,14 @@
+# AirBnB
+
+## Project Description
+
 To set up your project structure with the specified directories and files, we will break it down into manageable steps. I'll first show you how to organize your files based on the information you've provided, and then I'll walk you through the changes required for the `__init__.py` files in each directory, as well as updating the `console.py` and `file_storage.py` files to integrate everything.
 
 ### Project Structure
 
 Here is the expected project structure based on your description:
 
-```
+```sql
 main/
 │
 ├── console.py
@@ -262,7 +266,7 @@ if __name__ == '__main__':
 
 You can create a test file (`test_console.py`) to test your console commands. It can use Python's `unittest` framework to interact with the command interpreter.
 
-### Final Steps:
+### Final Steps
 
 1. **Make sure `storage.reload()` is called at the start** of your program. This will ensure that your `storage` is initialized and contains all objects from the `file.json` before any command is run.
 
